@@ -21,7 +21,7 @@ This file is intended to be read by any person who wants to know how the develop
 
    - [ ] Setup Express.js app file structure
 
-     - Because makes more sense to work with the endpoints as actions for the entities of the app, the folder structure for the api will be their entities, so whatever case we are in with users, we will only touch the user's folder. Our folder structure for the source code looks like this:
+     - Because makes more sense to work with the endpoints as actions for the entities of the app, the folder structure for the API will be their entities, so whatever case we are in with users, we will only touch the user's folder. Our folder structure for the source code looks like this:
 
        📦src
        ┣ 📂api // Here goes all related entities to interact with the app and database
@@ -32,8 +32,7 @@ This file is intended to be read by any person who wants to know how the develop
 
 2. Any database for storing data
 
-   - [ ] Define DB type based on size, type and queries to be made to the project app
-     - 
+   - [ ] ## Define DB type based on size, type and queries to be made to the project app
    - [ ] Make ER Diagram
 
      - [ ] Define User model
