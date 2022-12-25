@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 
-const gameDefinition = {
-  users: Array,
-  wins: Array,
-};
-
 const { Schema } = mongoose;
-const gameSchema = new Schema(gameDefinition);
 
 class Game {
+  _gameDefinition = {
+    users: Array,
+    wins: Array,
+  };
+
+  _gameSchema = new Schema(this.gameDefinition);
+
   constructor() {
-    this.model = mongoose.model('game', gameSchema);
+    this.Model = mongoose.model('game', this.gameSchema);
   }
 
   get name() {
-    return this.model;
+    return this.Model;
   }
 }
 
