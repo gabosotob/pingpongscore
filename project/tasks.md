@@ -8,19 +8,32 @@ This file is intended to be read by any person who wants to know how the develop
 
    - [ ] Define system architecture
 
-     - Since it is a simple app for keeping score of pingpong games, the scope for this project is simple.
-     - We'll gonna go for a simple backend with full acces for any user, so unauthenticated users can save and read app info
-     - Deleting content is forbbiden and makes sense for an app that doesn't perform authentications on his users.
-     - The context of the app is an organization wich people play pingpong, so a shared database will be useful for anyone playing.
-     - We end up with:
-       - A cloud based database for shared data.
-       - 
+     Since it is a simple app for keeping score of ping-pong games, the scope of this project is simple:
+
+     - We'll gonna go for a simple backend with full access for any user, so unauthenticated users can save and read app info
+     - Deleting content is forbidden and makes sense for an app that doesn't perform authentications on its users.
+     - The context of the app is an organization in which people play ping-pong, so a shared database will be useful for anyone playing to save the game score on a shared company database.
+
+     We end up with:
+
+     - A cloud-based database for shared data.
+     - A local API for communicating with external DB.
 
    - [ ] Setup Express.js app file structure
+
+     - Because makes more sense to work with the endpoints as actions for the entities of the app, the folder structure for the api will be their entities, so whatever case we are in with users, we will only touch the user's folder. Our folder structure for the source code looks like this:
+
+       📦src
+       ┣ 📂api // Here goes all related entities to interact with the app and database
+       ┃ ┣ 📂games // Every file related to interacting with the games
+       ┃ ┣ 📂users // Every file related to interacting with the users
+       ┣ 📂configs // Contains all the configuration data files like environment variables
+       ┗ 📂loaders // Files with the setup of dependencies of the app
 
 2. Any database for storing data
 
    - [ ] Define DB type based on size, type and queries to be made to the project app
+     - 
    - [ ] Make ER Diagram
 
      - [ ] Define User model
