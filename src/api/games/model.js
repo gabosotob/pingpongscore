@@ -1,22 +1,38 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
-class Game {
-  _gameDefinition = {
-    users: Array,
-    wins: Array,
-  };
+const gameSchema = new Schema({
+  teams: {
+    type: [
+      {
+        side: { type: String, required: true },
+        score: { type: Number, required: true },
+        players: { type: [{ type: ObjectId, ref: 'user' }] },
+      },
+    ],
+    minLength: 2,
+    maxLength: 2,
+  },
+  status: {
+    scoreDiff: Number,
+    winner: ObjectId,
+  },
+});
 
-  _gameSchema = new Schema(this.gameDefinition);
-
-  constructor() {
-    this.Model = mongoose.model('game', this.gameSchema);
+module.exports = class Game {
+  constructor(name, game) {
+    this.model = mongoose.model('game', gameSchema);
+    this.name = name;
+    this.game = game;
   }
 
   get name() {
-    return this.Model;
+    return this.name;
   }
-}
 
-module.exports = Game;
+  get game() {
+    return this.game;
+  }
+};

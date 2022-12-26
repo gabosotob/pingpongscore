@@ -13,6 +13,12 @@ module.exports = {
       cluster:
         process.env.MONGO_CLUSTER_NAME
         || (console.log('MONGO_CLUSTER_NAME not found!') && process.exit(1)),
+      dbName:
+        process.env.MONGO_DATABASE_NAME
+        || (console.log('MONGO_DATABASE_NAME not found!') && process.exit(1)),
+      testDbName:
+        process.env.MONGO_TESTING_DATABASE_NAME
+        || console.log('MONGO_TESTING_DATABASE_NAME not found!'),
     },
   },
 };

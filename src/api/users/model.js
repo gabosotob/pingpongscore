@@ -1,27 +1,12 @@
 const mongoose = require('mongoose');
 
-const userDefinition = {
-  name: String,
-  games: Array,
-};
-
 const { Schema } = mongoose;
-const userSchema = new Schema(userDefinition);
 
-class User {
-  constructor(name, game) {
-    this.model = mongoose.model('user', userSchema);
-    this.name = name;
-    this.game = game;
-  }
+const userSchema = new Schema({
+  name: { type: String, required: true, unique: true },
+  wins: { type: Number, required: true },
+});
 
-  get name() {
-    return this.name;
-  }
-
-  get game() {
-    return this.game;
-  }
-}
+const User = mongoose.model('user', userSchema);
 
 module.exports = User;

@@ -4,15 +4,18 @@ const { database } = require('../configs/index');
 mongoDb.set('strictQuery', false);
 
 const { mongo } = database;
-const { user, password, cluster } = mongo;
+const {
+  user, password, cluster, dbName, testDbName,
+} = mongo;
 
-const mongoUrl = [
-  'mongodb+srv://',
-  `${user}:${password}@${cluster}.vxhi1ob.mongodb.net/`,
-  '?retryWrites=true&w=majority',
-].join('');
+exports.load = async ({ testing }) => {
+  const mongoUrl = [
+    'mongodb+srv://',
+    `${user}:${password}@${cluster}.vxhi1ob.mongodb.net/`,
+    `${testing ? testDbName : dbName}`,
+    '?retryWrites=true&w=majority',
+  ].join('');
 
-exports.load = async () => {
   const mongoConn = await mongoDb.connect(mongoUrl, { useNewUrlParser: true });
   const { connection } = mongoConn;
   connection.on(
@@ -21,4 +24,8 @@ exports.load = async () => {
   );
 
   return connection;
+};
+
+exports.close = async () => {
+  await mongoDb.disconnect();
 };
