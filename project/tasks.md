@@ -24,16 +24,31 @@ This file is intended to be read by any person who wants to know how the develop
      - Because makes more sense to work with the endpoints as actions for the entities of the app, the folder structure for the API will be their entities, so whatever case we are in with users, we will only touch the user's folder. Our folder structure for the source code looks like this:
 
        📦src
-       ┣ 📂api // Here goes all related entities to interact with the app and database
-       ┃ ┣ 📂games // Every file related to interacting with the games
-       ┃ ┣ 📂users // Every file related to interacting with the users
-       ┣ 📂configs // Contains all the configuration data files like environment variables
-       ┗ 📂loaders // Files with the setup of dependencies of the app
+       ┣ 📂api                        // Here it goes all related entities to interact with the app and database
+       ┃ ┣ 📂games                    // Files related to the game's entities manipulation
+       ┃ ┃ ┣ 📜gamesService.test.js   // File for testing the game's service
+       ┃ ┃ ┣ 📜model.js               // The schema model that interacts with the database
+       ┃ ┃ ┣ 📜router.js              // All the routing-related with games
+       ┃ ┃ ┗ 📜service.js             // The service controller for the router, that interacts with the model.
+       ┃ ┣ 📂users
+       ┃ ┃ ┣ 📜model.js 
+       ┃ ┃ ┣ 📜router.js
+       ┃ ┃ ┣ 📜service.js
+       ┃ ┃ ┗ 📜usersService.test.js
+       ┃ ┗ 📜index.js                 // File containing all the routing for all entities of the API ("/api"), all API routes go through here.
+       ┣ 📂configs                    // Contains all the configuration data files like environment variables
+       ┗ 📂loaders                    // Files with the setup of dependencies of the app
 
 2. Any database for storing data
 
    - [ ] ## Define DB type based on size, type and queries to be made to the project app
+
+     - Since is a small app and will be a small development, we'll gona user MongoDB so its simple to configure and easy to use with Javascript.
+     - We'll use Mongo Atlas for our cloud-based DB.
+
    - [ ] Make ER Diagram
+
+     - The provided prototype only shows the use of the "Save Game" feature, but since 4 endpoints are needed for this project, **Games** and **Users** entities will be defined.
 
      - [ ] Define User model
      - [ ] Define Game model
