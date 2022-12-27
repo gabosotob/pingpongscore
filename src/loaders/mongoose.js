@@ -8,7 +8,9 @@ const {
   user, password, cluster, dbName, testDbName,
 } = mongo;
 
-exports.load = async ({ testing }) => {
+exports.load = async ({ testing } = {}) => {
+  // It's writen this way for sectionizing the URL and for better vertical readibility.
+  // The impact of the extra processing will be minimal when starting up the app.
   const mongoUrl = [
     'mongodb+srv://',
     `${user}:${password}@${cluster}.vxhi1ob.mongodb.net/`,

@@ -3,15 +3,19 @@ const expressLoader = require('./express');
 
 exports.init = async ({ expressApp }) => {
   try {
-    console.log('Connecting MongoDB..');
     await mongoose.load();
-    console.log('MongoDB Connected\n');
-
-    console.log('Setting Up Express..');
     await expressLoader(expressApp);
-    console.log('Express Setted Up\n');
   } catch (error) {
-    console.log(error);
+    console.error(error);
     process.exit(1);
   }
 };
+
+// Defining Cleaner
+async function exitHandler() {
+  await mongoose.close();
+}
+
+// Exiting Events
+process.on('exit', exitHandler.bind(null, { cleanup: true }));
+process.on('SIGINT', exitHandler.bind(null, { exit: true }));

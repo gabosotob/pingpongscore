@@ -1,21 +1,17 @@
 const User = require('./model');
 
+/**
+ *
+ * @param {Object} userData Takes an object representing user data
+ * @returns An object with the new user's main data created on Database
+ */
 exports.save_user = async userData => {
   try {
-    const user = await User.create(userData);
+    const mongoUser = await User.create(userData);
+    const { _id, name, wins } = mongoUser.toObject();
 
-    return user;
+    return { _id, name, wins };
   } catch (err) {
-    throw new Error(err);
-  }
-};
-
-exports.delete_user = async userName => {
-  try {
-    const user = await User.remove({ name: userName });
-
-    return user;
-  } catch (err) {
-    throw new Error(err);
+    throw new Error(`Error Saving User Into Database:\n${err}`);
   }
 };

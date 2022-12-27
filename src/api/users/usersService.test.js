@@ -1,7 +1,8 @@
 const UserService = require('./service');
 const mongoLoader = require('../../loaders/mongoose');
+const UserModel = require('./model');
 
-describe('User service', () => {
+describe('Testing User Service', () => {
   beforeAll(async () => {
     await mongoLoader.load({ testing: true });
   });
@@ -10,20 +11,35 @@ describe('User service', () => {
     await mongoLoader.close();
   });
 
-  it('should create a new user', async () => {
-    // Setup
-    const saveUser = UserService.save_user;
-    const deleteUser = UserService.delete_user;
-    const input = { name: 'John', wins: 0 };
-    const expected = '_id';
+  const saveUser = UserService.save_user;
 
-    // Evaluate
-    const result = await saveUser(input);
+  describe('Creating Users', () => {
+    it('should create a new user', async () => {
+      const input = { name: 'Sally' };
+      const expected = ['_id'];
 
-    // Verify
-    expect(result).toHaveProperty(expected);
+      const result = await saveUser(input);
 
-    // Teardowns
-    await deleteUser(input.name);
+      expect(result).toHaveProperty(expected);
+
+      await UserModel.deleteOne({ name: input.name });
+    });
+
+    it('should throw an error if name is not provided', async () => {
+      const input = {};
+
+      await expect(saveUser(input)).rejects.toThrow();
+    });
+
+    it("should throw an error if new user has duplicate 'name' key in DB", async () => {
+      const input1 = { name: 'Sally' };
+      const input2 = { name: 'Sally' };
+
+      await saveUser(input1);
+
+      await expect(saveUser(input2)).rejects.toThrow();
+
+      await UserModel.deleteOne({ name: input1.name });
+    });
   });
 });
