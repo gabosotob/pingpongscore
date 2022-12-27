@@ -32,7 +32,6 @@ exports.get_user = async userId => {
 exports.get_users = async () => {
   try {
     const users = await User.find({});
-    console.log('🚀 ~ file: service.js:35 ~ exports.get_users= ~ users', users);
 
     return users;
   } catch (err) {

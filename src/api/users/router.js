@@ -19,3 +19,26 @@ router.post('/', async (req, res) => {
     });
   }
 });
+
+router.get('/', async (req, res) => {
+  const { userId } = req.query;
+  let users;
+
+  try {
+    switch (true) {
+      case typeof userId === 'string':
+        users = await userService.get_user(userId);
+        break;
+
+      default:
+        users = await userService.get_users();
+    }
+
+    res.status(200).json({ ok: true, data: users, testing: userId });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: "Server Error: Can't Register User",
+    });
+  }
+});
