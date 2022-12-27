@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     'no-unused-expressions': ['error', { allowTernary: true }],
     'arrow-parens': ['error', 'as-needed'],
+    'linebreak-style': ['error', 'windows'],
   },
 };
