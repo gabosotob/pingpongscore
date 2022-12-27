@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   name: { type: String, required: true, unique: true },
-  wins: { type: Number, required: true },
+  wins: { type: Number, required: true, default: 0 },
 });
 
 const User = mongoose.model('user', userSchema);
