@@ -13,6 +13,7 @@ describe('Testing User Service', () => {
 
   const saveUser = UserService.save_user;
   const getUser = UserService.get_user;
+  const getUsers = UserService.get_users;
 
   describe('Creating Users', () => {
     it('should create a new user', async () => {
@@ -45,6 +46,11 @@ describe('Testing User Service', () => {
   });
 
   describe('Getting Users', () => {
+    it('should get all users', async () => {
+      const result = await getUsers();
+
+      expect(Array.isArray(result)).toBe(true);
+    });
     it('should get a user providing ID', async () => {
       const userId = '63aa539507505b6fbc194ccb';
       const expected = 'Farlon';

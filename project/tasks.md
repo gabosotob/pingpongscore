@@ -66,7 +66,7 @@ On each requirement, a task would be assigned and all the thought process for ch
 
   - [ ] Define Game model
 
-    The model for the Games is an array that represents the teams of the game, each team have a side of the table, the score and an array of player IDs. Then it's the status of the game, an object that contains the score difference between the teams
+    The model for the Games is an array that represents the teams of the game, each team has a side of the table, the score and an array of player IDs. Then it's the status of the game, an object that contains the score difference between the teams
 
     ```javascript
     interface GameSchema {
@@ -104,8 +104,23 @@ On each requirement, a task would be assigned and all the thought process for ch
   Extra
 
   - [ ] Get games
+	```json
+	{
+	  ""
+	}
+	```
   - [ ] Save users
+    ```json
+    {
+      "name": "Sally"
+    }
+    ```
   - [ ] Get users
+    ```json
+    {
+      "userId": "63aa539507505b6fbc194ccb"
+    }
+    ```
   - [ ] Get the game with the worst score of all time
 
 ### 4. You must use some linter for the code
