@@ -37,7 +37,7 @@ On each requirement, a task would be assigned and all the thought process for ch
   ┃ ┃ ┣ 📜router.js
   ┃ ┃ ┣ 📜service.js
   ┃ ┃ ┗ 📜usersService.test.js
-  ┃ ┗ 📜index.js // File containing all the routing for all entities of the API ("/api"), all API routes go through here.
+  ┃ ┗ 📜index.js // File containing all the routing for all entities of the API, all API routes go through here.
   ┣ 📂configs // Contains all the configuration data files like environment variables
   ┗ 📂loaders // Files with the setup of dependencies of the app
 
@@ -90,7 +90,10 @@ On each requirement, a task would be assigned and all the thought process for ch
 
   Required for Prototype:
 
-  - [ ] Save game:
+  - [ ] Save game: POST request with JSON body of the game info
+    ```json
+    {}
+    ```
 
   Extra
 

@@ -11,7 +11,11 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
-    'no-unused-expressions': ['error', { allowTernary: true }],
+    'no-unused-expressions': [
+      'error',
+      { allowTernary: true, allowShortCircuit: true },
+    ],
+    'no-param-reassign': ['error', { props: false }],
     'arrow-parens': ['error', 'as-needed'],
     'linebreak-style': ['error', 'windows'],
   },

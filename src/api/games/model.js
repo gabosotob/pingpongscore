@@ -21,18 +21,6 @@ const gameSchema = new Schema({
   },
 });
 
-module.exports = class Game {
-  constructor(name, game) {
-    this.model = mongoose.model('game', gameSchema);
-    this.name = name;
-    this.game = game;
-  }
+const Game = mongoose.model('game', gameSchema);
 
-  get name() {
-    return this.name;
-  }
-
-  get game() {
-    return this.game;
-  }
-};
+module.exports = Game;
