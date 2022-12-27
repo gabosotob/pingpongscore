@@ -12,7 +12,7 @@ describe('Testing User Service', () => {
   });
 
   const saveUser = UserService.save_user;
-  const getUser = name => {};
+  const getUser = UserService.get_user;
 
   describe('Creating Users', () => {
     it('should create a new user', async () => {
@@ -46,15 +46,15 @@ describe('Testing User Service', () => {
 
   describe('Getting Users', () => {
     it('should get a user', async () => {
-      const toFind = 'Farlon';
+      const userNameToFind = 'Farlon';
       const expected = 'Farlon';
 
-      const result = await getUser(toFind);
+      const result = await getUser(userNameToFind);
 
-      expect(result).toBe(expected);
+      expect(result?.name).toBe(expected);
     });
 
-    it('should throw an error if name is not provided', async () => {
+    it('should return null if name is not found in database', async () => {
       const toFind = '';
       const expected = null;
 
