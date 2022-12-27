@@ -90,38 +90,15 @@ On each requirement, a task would be assigned and all the thought process for ch
 
   Required for Prototype:
 
-  - [ ] Save game
-
-    - The request would look like this:
-
-    ```json
-    {
-      "players": ["Jason", "Sally"],
-      "scores": []
-    }
-    ```
+  - [ ] Save game:
 
   Extra
 
   - [ ] Get games
-	```json
-	{
-	  ""
-	}
-	```
-  - [ ] Save users
-    ```json
-    {
-      "name": "Sally"
-    }
-    ```
-  - [ ] Get users
-    ```json
-    {
-      "userId": "63aa539507505b6fbc194ccb"
-    }
-    ```
-  - [ ] Get the game with the worst score of all time
+  - [ ] Save users: POST request with a JSON body of the name of the user
+  - [ ] Get users: GET request gets all users of DB unless a query with the specific id of the user is provided
+
+- [ ] Get the game with the worst score of all time
 
 ### 4. You must use some linter for the code
 
