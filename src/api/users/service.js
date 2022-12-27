@@ -16,9 +16,9 @@ exports.save_user = async userData => {
   }
 };
 
-exports.get_user = async userName => {
+exports.get_user = async userId => {
   try {
-    const mongoUser = await User.findOne({ name: userName }).exec();
+    const mongoUser = await User.findById(userId);
     if (!mongoUser) return null;
 
     const { _id, name, wins } = mongoUser.toObject();

@@ -45,22 +45,28 @@ describe('Testing User Service', () => {
   });
 
   describe('Getting Users', () => {
-    it('should get a user', async () => {
-      const userNameToFind = 'Farlon';
+    it('should get a user providing ID', async () => {
+      const userId = '63aa539507505b6fbc194ccb';
       const expected = 'Farlon';
 
-      const result = await getUser(userNameToFind);
+      const result = await getUser(userId);
 
-      expect(result?.name).toBe(expected);
+      expect(result.name).toBe(expected);
     });
 
-    it('should return null if name is not found in database', async () => {
-      const toFind = '';
+    it('should return null if ID is not found in database', async () => {
+      const toFind = '63aa539507505b6fbc194ccc';
       const expected = null;
 
       const result = await getUser(toFind);
 
       expect(result).toBe(expected);
+    });
+
+    it('should throw error if an invalid ID is provided', async () => {
+      const toFind = '';
+
+      await expect(getUser(toFind)).rejects.toThrow();
     });
   });
 });
