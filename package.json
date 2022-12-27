@@ -2,13 +2,13 @@
   "name": "pingpongscore",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint **",
     "lint:fix": "eslint ** --fix",
-    "dev": "nodemon app.js"
+    "dev": "nodemon ./src/app.js"
   },
   "keywords": [],
   "author": "",
