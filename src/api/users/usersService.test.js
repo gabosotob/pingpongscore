@@ -12,6 +12,7 @@ describe('Testing User Service', () => {
   });
 
   const saveUser = UserService.save_user;
+  const getUser = name => {};
 
   describe('Creating Users', () => {
     it('should create a new user', async () => {
@@ -40,6 +41,26 @@ describe('Testing User Service', () => {
       await expect(saveUser(input2)).rejects.toThrow();
 
       await UserModel.deleteOne({ name: input1.name });
+    });
+  });
+
+  describe('Getting Users', () => {
+    it('should get a user', async () => {
+      const toFind = 'Farlon';
+      const expected = 'Farlon';
+
+      const result = await getUser(toFind);
+
+      expect(result).toBe(expected);
+    });
+
+    it('should throw an error if name is not provided', async () => {
+      const toFind = '';
+      const expected = null;
+
+      const result = await getUser(toFind);
+
+      expect(result).toBe(expected);
     });
   });
 });
