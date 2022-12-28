@@ -4,46 +4,79 @@ This file is intended to be read by any person who wants to know how the develop
 
 ## Requirements, Tasks & Thoughts
 
-On each requirement, a task would be assigned and all the thought process for choosing each solution is written inside along with the solution.
+On each requirement, a task would be assigned and all the **thought process** for choosing each solution is written inside, along with the solution.
 
 ### 1. NodeJS for the backend
 
 - [ ] Define system communication architecture
 
+  #### Context
+
+  The context of the app is an organization in which people play ping-pong matches, so a shared database will be useful for anyone playing to save the game score on a shared company database.
   Since it is a simple app for keeping score of ping-pong games, the scope of this project is simple:
 
-  - We'll gonna go for a simple backend with full access for any user, so unauthenticated users can save and read app info
-  - Deleting content is forbidden and makes sense for an app that doesn't perform authentications on its users.
-  - The context of the app is an organization in which people play ping-pong, so a shared database will be useful for anyone playing to save the game score on a shared company database.
+  - We'll gonna go for a simple backend with full access for any user, so unauthenticated users can save and read app info, in other words... is gonna be a public API.
+  - Deleting content is forbidden, this makes sense for an app that doesn't perform authentications on its users.
+
+  Maybe it's not that safe that any user can see and save a user/game into the company's database, but we're going to make an MVP API with the purpose of showing what the app can do, we can then integrate some authentications middleware.
+
+  **NOTE**: we are developers who are going to be making the testing with the users, so... we're bringing our own laptop.
 
   We end up with:
 
-  - A cloud-based database for shared data.
+  - A cloud-based database for shared data so we don't worry about setting up a local DB.
   - A local API for communicating with external DB.
 
 - [ ] Setup Express.js app file structure
 
   Because makes more sense to work with the endpoints as actions for the entities of the app, the folder structure for the API will be their entities, so whatever case we are in with users, we will only touch the user's folder. Our folder structure for the source code looks like this:
 
-  📦src
-  ┣ 📂api // Here it goes all related entities to interact with the app and database
-  ┃ ┣ 📂games // Files related to the game's entities manipulation
-  ┃ ┃ ┣ 📜gamesService.test.js // File for testing the game's service
-  ┃ ┃ ┣ 📜model.js // The schema model that interacts with the database
-  ┃ ┃ ┣ 📜router.js // All the routing-related with games
-  ┃ ┃ ┗ 📜service.js // The service controller for the router, that interacts with the model.
-  ┃ ┣ 📂users
-  ┃ ┃ ┣ 📜model.js
-  ┃ ┃ ┣ 📜router.js
-  ┃ ┃ ┣ 📜service.js
-  ┃ ┃ ┗ 📜usersService.test.js
-  ┃ ┗ 📜index.js // File containing all the routing for all entities of the API, all API routes go through here.
-  ┣ 📂configs // Contains all the configuration data files like environment variables
-  ┗ 📂loaders // Files with the setup of dependencies of the app
+  📦src  
+  ┣ 📂api  
+  ┃ ┣ 📂games  
+  ┃ ┃ ┣ 📜gamesService.test.js  
+  ┃ ┃ ┣ 📜model.js  
+  ┃ ┃ ┣ 📜router.js  
+  ┃ ┃ ┗ 📜service.js  
+  ┃ ┣ 📂middleware  
+  ┃ ┃ ┗ 📜celebrations.js  
+  ┃ ┣ 📂users  
+  ┃ ┃ ┣ 📜model.js  
+  ┃ ┃ ┣ 📜router.js  
+  ┃ ┃ ┣ 📜service.js  
+  ┃ ┃ ┗ 📜usersService.test.js  
+  ┃ ┗ 📜index.js  
+  ┣ 📂configs  
+  ┃ ┗ 📜index.js  
+  ┣ 📂helpers  
+  ┃ ┗ 📜promises.js  
+  ┣ 📂loaders  
+  ┃ ┣ 📜express.js  
+  ┃ ┣ 📜index.js  
+  ┃ ┗ 📜mongoose.js  
+  ┗ 📜app.js
+
+- **app.js:** were all starts, calling the loaders, importing express.js and setting up the port to listen for requests.
+- **src.api:** contains all the information regarding the specific api files.
+  - **index.js:** provides routing for all the entities endpoints.
+  - **src.api.entity:** contains all the files regarding the route, service and model for interaction with the entity.
+    - **router.js:** this file is intended to contain the router for the entity and the corresponding controller embeded in the endpoints.
+    - **service:** logic of the api where the executing task of the endpoint's controller does all the procedures required to make the task. **Quicknote:** Services can interact with other entities services.
+    - **model.js** corresponds with the Schema/Class that makes the actual manipulation of the DB.
+  - **src.api.middleware:** created with the purpose of containing all the functions that run in between the main router and the endpoint's controller.
+    - **celebrations.js:** all the files regarding request validation goes here
+- **src.configs:** files for holding the startup configuration variables for the api, because there's not much variables to set, a single file will be used.
+  - **index.js:** contains all the environment variables to use on the app.
+- **src.helpers:** simple files that contains helper functions for the services.
+  - **promises.js:** file for containing a simple function using mainly promises.
+- **src.loaders:** here will be the files that use the _configs_ files to setup the api on the startup.
+  - **express.js:** configures all the app _global_ middleware that is going to be use in **every** request.
+  - **mongoose.js:** sets up the connection for the cloud database.
+  - **index.js:** imports all the loader functions for the app.js to use.
 
 ### 2. Any database for storing data
 
-- [ ] ## Define DB type based on size, type and queries to be made to the project app
+- [ ] Define DB type based on size, type and queries to be made to the project app
 
   - Since it's a small app and will be a small development, we'll gonna use MongoDB for simple and easy configuration using Javascript.
   - We'll use Mongo Atlas for our cloud-based DB.
@@ -57,25 +90,41 @@ On each requirement, a task would be assigned and all the thought process for ch
     The model for the User is the name, the IDs of the winning games, and the IDs of the overall played games.
 
     ```javascript
-    const UserSchema = {
-      name: { type: String, required: true },
-      wins: [{ type: Schema.Types.ObjectId }],
-      games: [{ type: Schema.Types.ObjectId }],
-    };
+    new Schema({
+      name: { type: String, required: true, unique: true },
+      wins: { type: Number, required: true, default: 0 },
+    });
     ```
 
-  - [ ] Define Game model
+  - [ ] Define Game mode
 
     The model for the Games is an array that represents the teams of the game, each team has a side of the table, the score and an array of player IDs. Then it's the status of the game, an object that contains the score difference between the teams
 
     ```javascript
-    interface GameSchema {
-      teams: [
-        { side: string, score: number, players: number[] },
-        { side: string, score: number, players: number[] }
-      ];
-      status: { scoreDiff: number, winner: string };
-    }
+    new Schema({
+      team: {
+        A: {
+          score: { type: Number, required: true },
+          players: {
+            type: [{ type: ObjectId, ref: 'user' }],
+            minLength: 1,
+            maxLength: 2,
+          },
+        },
+        B: {
+          score: { type: Number, required: true },
+          players: {
+            type: [{ type: ObjectId, ref: 'user' }],
+            minLength: 1,
+            maxLength: 2,
+          },
+        },
+      },
+      status: {
+        scoreDiff: Number,
+        winners: [{ type: ObjectId, ref: 'user' }],
+      },
+    });
     ```
 
 ### 3. At least 4 APIs (Up to you to decide; but adding some examples: Save users, get games, get users, get top performer from the last 5 games, save game)
@@ -90,28 +139,37 @@ On each requirement, a task would be assigned and all the thought process for ch
 
   Required for Prototype:
 
-  - [ ] Save game: POST request with JSON body of the game info
-    ```json
-    {}
-    ```
-
-  Extra
-
-  - [ ] Get games
-  - [ ] Save users: POST request with a JSON body of the name of the user
-  - [ ] Get users: GET request gets all users of DB unless a query with the specific id of the user is provided
-
-- [ ] Get the game with the worst score of all time
+  - Save game: saves a game record
+  - Get games: returns all the game records, or a single game record
+  - Save users: saves a user
+  - Get users: returns all the users info, or a single user info
 
 ### 4. You must use some linter for the code
 
-- Define linter, standard and guide rules
-- Define formatter
+- [ ] Define linter, standard and guide rules
+  - We'll use the Airbnb coding standard as base rules
+  - Some coding rules will be overwriten for customizing our coding standard
+- [ ] Define formatter
+  - Prettier will be our default formatter
 
 ### 5. You must use git for version control (at least 2 commits)
 
+- [ ] Make two commits
+- [ ] Make branches for specific features
+- [ ] Merge all branches into main branch
+
 ### 6. You must have at least one test
 
+- [ ] Have a test for every main service process
+
 ### 7. You must include a README with instructions on how to run the application
+
+- [ ] Include authors
+- [ ] Include features
+- [ ] Include API Reference
+- [ ] Installation
+- [ ] How to run
+- [ ] Running test
+- [ ] Environment variable
 
 ### 8. Not required to create a front-end. However, if you manage to build a small UI that would be great.

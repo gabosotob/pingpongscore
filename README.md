@@ -1,54 +1,86 @@
 ## Authors
 
-- [@octokatherine](https://www.github.com/octokatherine)
+- [@Gabosotob](https://www.github.com/gabosotob)
 
-# Project Title
+# Ping-Pong Score
 
-A brief description of what this project does and who it's for
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+Simple API for keeping track of ping-pong game matches.
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- Save and read game records
+- Save and read user names
 
 ## API Reference
 
-#### Get all items
+#### Get Game/All Games
 
 ```http
-  GET /api/items
+  GET /api/games?id=<game-id>
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
+| Query | Type     | Description                                  |
+| :---- | :------- | :------------------------------------------- |
+| `id`  | `string` | **Optional**. returns the specific game info |
 
-#### Get item
+#### Save Game
 
 ```http
-  GET /api/items/${id}
+  GET /api/games
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
+| Parameter | Type               | Description                                                    |
+| :-------- | :----------------- | :------------------------------------------------------------- |
+| `body`    | `application/json` | **Required**. json object representing the game record to save |
+
+```json
+{
+  "game": {
+    "team": {
+      "A": {
+        "score": 3,
+        "players": [{ "name": "Drasus" }]
+      },
+      "B": {
+        "score": 4,
+        "players": [{ "name": "Mattias" }]
+      }
+    },
+    "status": {
+      "scoreDiff": 1,
+      "winners": [{ "name": "Mattias" }]
+    }
+  }
+}
+```
+
+#### Get User/All Users
+
+```http
+  GET /api/users?id=<user-id>
+```
+
+| Query | Type     | Description                                  |
+| :---- | :------- | :------------------------------------------- |
+| `id`  | `string` | **Optional**. returns the specific user info |
+
+#### Save User
+
+```http
+  GET /api/users
+```
+
+| Parameter | Type               | Description                                             |
+| :-------- | :----------------- | :------------------------------------------------------ |
+| `body`    | `application/json` | **Required**. json object representing the user to save |
+
+```json
+{
+  "user": { "name": "Drobar" }
+}
+```
 
 ## Installation
-
-Install my-project with npm
-
-```bash
-  npm install my-project
-  cd my-project
-```
-
-## Run Locally
 
 Clone the project
 
@@ -56,25 +88,7 @@ Clone the project
   git clone https://link-to-project
 ```
 
-Go to the project directory
-
-```bash
-  cd my-project
-```
-
-Install dependencies
-
-```bash
-  npm install
-```
-
-Start the server
-
-```bash
-  npm run start
-```
-
-## Deployment
+## Deploy & Run (local)
 
 To deploy this project run
 
@@ -87,19 +101,17 @@ To deploy this project run
 To run tests, run the following command
 
 ```bash
-  npm run test
+  npm test
 ```
-
-## Roadmap
-
-- Additional browser support
-
-- Add more integrations
 
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`API_KEY`
-
-`ANOTHER_API_KEY`
+`NODE_ENV`
+`PORT`
+`MONGO_USER`
+`MONGO_PASSWORD`
+`MONGO_CLUSTER_NAME`
+`MONGO_DATABASE_NAME`
+`MONGO_TESTING_DATABASE_NAME`
