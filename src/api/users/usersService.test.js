@@ -17,6 +17,7 @@ describe('Testing User Service', () => {
 
   describe('Creating Users', () => {
     it('should create a new user', async () => {
+      // TODO Generate a function for random name generator based on time
       const input = { name: 'Sally' };
       const expected = ['_id'];
 
@@ -34,6 +35,7 @@ describe('Testing User Service', () => {
     });
 
     it("should throw an error if new user has duplicate 'name' key in DB", async () => {
+      // TODO Generate a function for random name generator based on time
       const input1 = { name: 'Sally' };
       const input2 = { name: 'Sally' };
 

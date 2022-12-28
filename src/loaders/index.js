@@ -14,6 +14,7 @@ exports.init = async ({ expressApp }) => {
 // Defining Cleaner
 async function exitHandler() {
   await mongoose.close();
+  process.exit(0);
 }
 
 // Exiting Events
