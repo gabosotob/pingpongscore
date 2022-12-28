@@ -1,15 +1,8 @@
 const { Types } = require('mongoose');
 const Game = require('./model');
-const userService = require('../users/service');
 const User = require('../users/model');
-
-function promiseAll(arrToPromise, promisify) {
-  let promises = [];
-  for (let i = 0; i < arrToPromise.length; i++) {
-    promises.push(promisify(arrToPromise[i]));
-  }
-  return Promise.all(promises);
-}
+const userService = require('../users/service');
+const promiseHelper = require('../../helpers/promises');
 
 exports.get_player_id = async (player) => {
   const exist = await User.findOne(player);
@@ -24,7 +17,10 @@ exports.get_player_id = async (player) => {
 };
 
 exports.get_players_ids_from_team = async (team) => {
-  const results = await promiseAll(team.players, this.get_player_id);
+  const results = await promiseHelper.promiseAll(
+    team.players,
+    this.get_player_id
+  );
   return results;
 };
 
@@ -64,7 +60,10 @@ exports.save_game = async (gameData) => {
   try {
     const game = await this.map_user_ids_to_game(gameData);
 
-    await promiseAll(game.status.winners, userService.add_win_to_existing_user);
+    await promiseHelper.promiseAll(
+      game.status.winners,
+      userService.add_win_to_existing_user
+    );
 
     const itsNotValid = await Game.validate(game);
 
@@ -74,9 +73,9 @@ exports.save_game = async (gameData) => {
     await mongoGame.save();
     await mongoGame.populate();
 
-    const { _id, teams, status } = mongoGame.toObject();
+    const { _id, team, status } = mongoGame.toObject();
 
-    return { id: _id, teams, status };
+    return { id: _id, team, status };
   } catch (err) {
     throw new Error(`Error Saving User Into Database:\n${err}`);
   }

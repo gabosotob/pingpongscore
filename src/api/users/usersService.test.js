@@ -16,7 +16,7 @@ describe('Testing User Service', () => {
   const getUsers = UserService.get_users;
 
   describe('Creating Users', () => {
-    it('should create a new user', async () => {
+    test('should create a new user', async () => {
       // TODO Generate a function for random name generator based on time
       const input = { name: 'Veronica' };
       const expected = ['id'];
@@ -28,13 +28,13 @@ describe('Testing User Service', () => {
       await UserModel.deleteOne({ name: input.name });
     });
 
-    it('should throw an error if name is not provided', async () => {
+    test('should throw an error if name is not provided', async () => {
       const input = {};
 
       await expect(saveUser(input)).rejects.toThrow();
     });
 
-    it("should throw an error if new user has duplicate 'name' key in DB", async () => {
+    test("should throw an error if new user has duplicate 'name' key in DB", async () => {
       // TODO Generate a function for random name generator based on time
       const input1 = { name: 'John' };
       const input2 = { name: 'John' };
@@ -64,12 +64,13 @@ describe('Testing User Service', () => {
   });
 
   describe('Getting Users', () => {
-    it('should get all users', async () => {
+    test('should get all users', async () => {
       const result = await getUsers();
 
       expect(Array.isArray(result)).toBe(true);
     });
-    it('should get a user providing ID', async () => {
+
+    test('should get a user providing ID', async () => {
       const userId = '63aa539507505b6fbc194ccb';
       const expected = 'Farlon';
 
@@ -78,7 +79,7 @@ describe('Testing User Service', () => {
       expect(result.name).toBe(expected);
     });
 
-    it('should return null if ID is not found in database', async () => {
+    test('should return null if ID is not found in database', async () => {
       const toFind = '63aa539507505b6fbc194ccc';
       const expected = null;
 
@@ -87,7 +88,7 @@ describe('Testing User Service', () => {
       expect(result).toBe(expected);
     });
 
-    it('should throw error if an invalid ID is provided', async () => {
+    test('should throw error if an invalid ID is provided', async () => {
       const toFind = '';
 
       await expect(getUser(toFind)).rejects.toThrow();
