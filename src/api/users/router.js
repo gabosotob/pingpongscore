@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ ok: true, message: 'User Created', data: user });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       ok: false,
       message: "Server Error: Can't Register User",
@@ -21,21 +22,25 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const { userId } = req.query;
+  const { id } = req.query;
   let users;
 
   try {
     switch (true) {
-      case typeof userId === 'string':
-        users = await userService.get_user(userId);
+      case typeof id === 'string':
+        users = await userService.get_user(id);
         break;
 
       default:
         users = await userService.get_users();
     }
 
-    res.status(200).json({ ok: true, data: users, testing: userId });
+    res.status(200);
+    users.length === 0 && res.status(404);
+
+    res.json({ ok: true, data: users });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       ok: false,
       message: "Server Error: Can't Register User",
