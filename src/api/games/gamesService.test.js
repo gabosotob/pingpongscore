@@ -39,17 +39,17 @@ describe('Testing Games Service', () => {
       const input = {
         team: {
           A: {
-            score: 5,
-            players: [{ name: 'Drobar' }],
+            score: 3,
+            players: [{ name: 'Drasus' }],
           },
           B: {
-            score: 2,
+            score: 4,
             players: [{ name: 'Mattias' }],
           },
         },
         status: {
-          scoreDiff: 3,
-          winner: { name: 'Drobar' },
+          scoreDiff: 1,
+          winners: [{ name: 'Mattias' }],
         },
       };
 
@@ -59,7 +59,7 @@ describe('Testing Games Service', () => {
 
       expect(result).toHaveProperty(expected);
 
-      // await GameModel.deleteOne(result.id);
+      await GameModel.deleteOne(result.id);
     });
 
     it('should throw an error if object is not provided', async () => {
@@ -70,20 +70,37 @@ describe('Testing Games Service', () => {
   });
 
   describe('Getting Games', () => {
-    it.only('should get all games', async () => {
+    it('should get all games', async () => {
       const result = await getGames();
-
-      console.log(result);
 
       expect(Array.isArray(result)).toBe(true);
     });
 
     it('should get a game providing ID', async () => {
-      const userId = '63abcdef2d0109c53bff32ca';
+      const input = {
+        team: {
+          A: {
+            score: 3,
+            players: [{ name: 'Drasus' }],
+          },
+          B: {
+            score: 4,
+            players: [{ name: 'Mattias' }],
+          },
+        },
+        status: {
+          scoreDiff: 1,
+          winners: [{ name: 'Mattias' }],
+        },
+      };
+      const savedGame = await saveGame(input);
+      const gameId = savedGame.id;
 
-      const result = await getGame(userId);
+      const result = await getGame(gameId);
 
       expect(result).toBeTruthy();
+
+      await GameModel.deleteOne(result.id);
     });
 
     it('should return null if ID is not found in database', async () => {

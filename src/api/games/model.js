@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
@@ -7,7 +6,7 @@ const gameSchema = new Schema({
   team: {
     A: {
       score: { type: Number, required: true },
-      playersIds: {
+      players: {
         type: [{ type: ObjectId, ref: 'user' }],
         minLength: 1,
         maxLength: 2,
@@ -15,7 +14,7 @@ const gameSchema = new Schema({
     },
     B: {
       score: { type: Number, required: true },
-      playersIds: {
+      players: {
         type: [{ type: ObjectId, ref: 'user' }],
         minLength: 1,
         maxLength: 2,
@@ -24,7 +23,7 @@ const gameSchema = new Schema({
   },
   status: {
     scoreDiff: Number,
-    winnerId: { type: ObjectId, ref: 'user' },
+    winners: [{ type: ObjectId, ref: 'user' }],
   },
 });
 
