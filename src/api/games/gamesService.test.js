@@ -2,7 +2,7 @@ const GameService = require('./service');
 const mongoLoader = require('../../loaders/mongoose');
 const GameModel = require('./model');
 
-describe('Testing User Service', () => {
+describe('Testing Games Service', () => {
   beforeAll(async () => {
     await mongoLoader.load({ testing: true });
   });
@@ -12,73 +12,93 @@ describe('Testing User Service', () => {
   });
 
   const saveGame = GameService.save_game;
-  // const getGame = GameService.get_user;
-  // const getGames = GameService.get_users;
+  const getGame = GameService.get_game;
+  const getGames = GameService.get_games;
 
   describe('Creating Games', () => {
+    test('get_player_id should return a string of an id', async () => {
+      const input = { name: 'Sally' };
+
+      const id = await GameService.get_player_id(input);
+
+      expect(typeof id).toBe('string');
+    });
+
+    test('get_player_id should return a string of an id', async () => {
+      const input = {
+        score: 5,
+        players: [{ name: 'Drobar' }],
+      };
+
+      const ids = await GameService.get_players_ids_from_team(input);
+
+      expect(Array.isArray(ids)).toBeTruthy();
+    });
+
     it('should create a new game record', async () => {
       const input = {
-        teams: [
-          {
-            side: 'A',
+        team: {
+          A: {
             score: 5,
             players: [{ name: 'Drobar' }],
           },
-          {
-            side: 'B',
+          B: {
             score: 2,
             players: [{ name: 'Mattias' }],
           },
-        ],
+        },
         status: {
           scoreDiff: 3,
-          winner: 'Drobar',
+          winner: { name: 'Drobar' },
         },
       };
-      const expected = ['_id'];
+
+      const expected = ['id'];
 
       const result = await saveGame(input);
 
       expect(result).toHaveProperty(expected);
 
-      await GameModel.deleteOne({ name: input.name });
+      // await GameModel.deleteOne(result.id);
     });
 
     it('should throw an error if object is not provided', async () => {
       const input = {};
 
-      await expect(saveGame(input)).rejects.toThrow();
+      await expect(saveGame(input)).resolves.toBe(null);
     });
   });
 
-  // describe('Getting Users', () => {
-  //   it('should get all users', async () => {
-  //     const result = await getGames();
+  describe('Getting Games', () => {
+    it.only('should get all games', async () => {
+      const result = await getGames();
 
-  //     expect(Array.isArray(result)).toBe(true);
-  //   });
-  //   it('should get a user providing ID', async () => {
-  //     const userId = '63aa539507505b6fbc194ccb';
-  //     const expected = 'Farlon';
+      console.log(result);
 
-  //     const result = await getGame(userId);
+      expect(Array.isArray(result)).toBe(true);
+    });
 
-  //     expect(result.name).toBe(expected);
-  //   });
+    it('should get a game providing ID', async () => {
+      const userId = '63abcdef2d0109c53bff32ca';
 
-  //   it('should return null if ID is not found in database', async () => {
-  //     const toFind = '63aa539507505b6fbc194ccc';
-  //     const expected = null;
+      const result = await getGame(userId);
 
-  //     const result = await getGame(toFind);
+      expect(result).toBeTruthy();
+    });
 
-  //     expect(result).toBe(expected);
-  //   });
+    it('should return null if ID is not found in database', async () => {
+      const toFind = '63abcdef2d0109c53bff32cc';
+      const expected = null;
 
-  //   it('should throw error if an invalid ID is provided', async () => {
-  //     const toFind = '';
+      const result = await getGame(toFind);
 
-  //     await expect(getGame(toFind)).rejects.toThrow();
-  //   });
-  // });
+      expect(result).toBe(expected);
+    });
+
+    it('should throw error if an invalid ID is provided', async () => {
+      const toFind = '';
+
+      await expect(getGame(toFind)).rejects.toThrow();
+    });
+  });
 });

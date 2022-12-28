@@ -17,6 +17,9 @@ module.exports = {
     ],
     'no-param-reassign': ['error', { props: false }],
     'arrow-parens': ['error', 'as-needed'],
+    'no-plusplus': 'off',
     'linebreak-style': ['error', 'windows'],
+    'brace-style': ['error', '1tbs', { allowSingleLine: true }],
+    // 'no-await-in-loop': 'disable',
   },
 };
