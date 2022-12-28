@@ -1,15 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+const { nodeEnvironment } = require('../configs/index');
 const apiRouter = require('../api/index');
 
-module.exports = app => {
+module.exports = (app) => {
+  if (nodeEnvironment !== 'production') {
+    const morgan = require('morgan');
+    app.use(morgan('dev'));
+  }
+
   app.use(express.json());
-  app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: false }));
 
   app.use('/api', apiRouter);
-
   app.get('/status', (req, res) => {
     res.status(200).end();
   });
