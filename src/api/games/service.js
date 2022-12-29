@@ -4,7 +4,7 @@ const User = require('../users/model');
 const userService = require('../users/service');
 const promiseHelper = require('../../helpers/promises');
 
-exports.get_player_id = async (player) => {
+exports.get_player_id = async player => {
   const exist = await User.findOne(player);
   let id;
 
@@ -16,21 +16,21 @@ exports.get_player_id = async (player) => {
   return id;
 };
 
-exports.get_players_ids_from_team = async (team) => {
+exports.get_players_ids_from_team = async team => {
   const results = await promiseHelper.promiseAll(
     team.players,
-    this.get_player_id
+    this.get_player_id,
   );
   return results;
 };
 
-exports.map_user_ids_to_game = async (game) => {
+exports.map_user_ids_to_game = async game => {
   const {
     team,
     status: { scoreDiff, winners },
   } = game;
 
-  let mappedGame = {
+  const mappedGame = {
     team: {
       A: { score: team.A.score, players: [] },
       B: { score: team.B.score, players: [] },
@@ -52,7 +52,7 @@ exports.map_user_ids_to_game = async (game) => {
  * @param {Object} userData Takes an object representing user data
  * @returns An object with the new user's main data created on Database
  */
-exports.save_game = async (gameData) => {
+exports.save_game = async gameData => {
   if (typeof gameData !== 'object' || Object.keys(gameData).length === 0) {
     return null;
   }
@@ -62,7 +62,7 @@ exports.save_game = async (gameData) => {
 
     await promiseHelper.promiseAll(
       game.status.winners,
-      userService.add_win_to_existing_user
+      userService.add_win_to_existing_user,
     );
 
     const itsNotValid = await Game.validate(game);
@@ -81,7 +81,7 @@ exports.save_game = async (gameData) => {
   }
 };
 
-exports.get_game = async (gameId) => {
+exports.get_game = async gameId => {
   try {
     const mongoGame = await Game.findById(gameId)
       .populate('team.A.players')
@@ -99,13 +99,13 @@ exports.get_game = async (gameId) => {
 
 exports.get_games = async () => {
   try {
-    let mongoGames = await Game.find({})
+    const mongoGames = await Game.find({})
       .populate('team.A.players')
       .populate('team.B.players')
       .populate('status.winners')
       .exec();
 
-    const gamesObj = mongoGames.map((mongoGame) => mongoGame.toObject());
+    const gamesObj = mongoGames.map(mongoGame => mongoGame.toObject());
 
     return gamesObj;
   } catch (err) {

@@ -20,6 +20,5 @@ module.exports = {
     'no-plusplus': 'off',
     'linebreak-style': ['error', 'windows'],
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-    // 'no-await-in-loop': 'disable',
   },
 };

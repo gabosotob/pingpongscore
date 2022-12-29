@@ -1,4 +1,6 @@
-const { celebrate, Joi, errors, Segments } = require('celebrate');
+const {
+  celebrate, Joi, errors, Segments,
+} = require('celebrate');
 
 module.exports = {
   game: celebrate({
@@ -13,7 +15,7 @@ module.exports = {
                   .items(
                     Joi.object().keys({
                       name: Joi.string().min(3).required(),
-                    })
+                    }),
                   )
                   .min(1)
                   .max(2)
@@ -27,7 +29,7 @@ module.exports = {
                   .items(
                     Joi.object().keys({
                       name: Joi.string().min(3).required(),
-                    })
+                    }),
                   )
                   .min(1)
                   .max(2)
@@ -43,7 +45,7 @@ module.exports = {
               .items(
                 Joi.object().keys({
                   name: Joi.string().min(3).required(),
-                })
+                }),
               )
               .min(1)
               .max(2)

@@ -82,6 +82,8 @@ Simple API for keeping track of ping-pong game matches.
 
 ## Installation
 
+This project is intended to run locally on a developer's windows machine.
+
 Clone the project
 
 ```bash

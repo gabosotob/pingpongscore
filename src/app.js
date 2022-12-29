@@ -8,14 +8,13 @@ app.get('/', (req, res) => {
   res.send('Welcome!');
 });
 
-const startApp = async () => {
+// Start App
+(async () => {
   await loaders.init({ expressApp: app });
 
   app.listen(port, () => {
     console.log('Server listening on port:', port);
   });
-};
-
-startApp();
+})();
 
 module.exports = app;

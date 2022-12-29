@@ -18,9 +18,9 @@ On each requirement, a task would be assigned and all the **thought process** fo
   - We'll gonna go for a simple backend with full access for any user, so unauthenticated users can save and read app info, in other words... is gonna be a public API.
   - Deleting content is forbidden, this makes sense for an app that doesn't perform authentications on its users.
 
-  Maybe it's not that safe that any user can see and save a user/game into the company's database, but we're going to make an MVP API with the purpose of showing what the app can do, we can then integrate some authentications middleware.
+  Maybe it's not that safe that any user can see and save a user/game into the company's database, but we're going to make an MVP API to show what the app can do, we can then integrate some authentication middleware.
 
-  **NOTE**: we are developers who are going to be making the testing with the users, so... we're bringing our own laptop.
+  **NOTE:** we're developers who are going to be making the testing with the users, so... we're bringing our laptops.
 
   We end up with:
 
@@ -56,21 +56,21 @@ On each requirement, a task would be assigned and all the **thought process** fo
   ┃ ┗ 📜mongoose.js  
   ┗ 📜app.js
 
-- **app.js:** were all starts, calling the loaders, importing express.js and setting up the port to listen for requests.
-- **src.api:** contains all the information regarding the specific api files.
-  - **index.js:** provides routing for all the entities endpoints.
+- **app.js:** where all starts, calling the loaders, importing express.js and setting up the port to listen for requests.
+- **src.api:** contains all the information regarding the specific API files.
+  - **index.js:** provides routing for all the entity's endpoints.
   - **src.api.entity:** contains all the files regarding the route, service and model for interaction with the entity.
-    - **router.js:** this file is intended to contain the router for the entity and the corresponding controller embeded in the endpoints.
-    - **service:** logic of the api where the executing task of the endpoint's controller does all the procedures required to make the task. **Quicknote:** Services can interact with other entities services.
+    - **router.js:** this file is intended to contain the router for the entity and the corresponding controller embedded in the endpoints.
+    - **service:** logic of the API where the executing task of the endpoint's controller does all the procedures required to make the task. **Quicknote:** Services can interact with other entities' services.
     - **model.js** corresponds with the Schema/Class that makes the actual manipulation of the DB.
-  - **src.api.middleware:** created with the purpose of containing all the functions that run in between the main router and the endpoint's controller.
+  - **src.api.middleware:** created to contain all the functions that run between the main router and the endpoint's controller.
     - **celebrations.js:** all the files regarding request validation goes here
-- **src.configs:** files for holding the startup configuration variables for the api, because there's not much variables to set, a single file will be used.
+- **src.configs:** files for holding the startup configuration variables for the API, because there are not many variables to set, a single file will be used.
   - **index.js:** contains all the environment variables to use on the app.
-- **src.helpers:** simple files that contains helper functions for the services.
-  - **promises.js:** file for containing a simple function using mainly promises.
-- **src.loaders:** here will be the files that use the _configs_ files to setup the api on the startup.
-  - **express.js:** configures all the app _global_ middleware that is going to be use in **every** request.
+- **src.helpers:** simple files that contain helper functions for the services.
+- **promises.js:** a file containing a simple function using mainly promises.
+- **src.loaders:** here will be the files that use the _configs_ files to set up the API on the startup.
+  - **express.js:** configures all the app _global_ middleware that is going to be used in **every\*\*** request.
   - **mongoose.js:** sets up the connection for the cloud database.
   - **index.js:** imports all the loader functions for the app.js to use.
 
@@ -142,13 +142,13 @@ On each requirement, a task would be assigned and all the **thought process** fo
   - Save game: saves a game record
   - Get games: returns all the game records, or a single game record
   - Save users: saves a user
-  - Get users: returns all the users info, or a single user info
+  - Get users: returns all the user's info, or a single user's info
 
 ### 4. You must use some linter for the code
 
 - [ ] Define linter, standard and guide rules
-  - We'll use the Airbnb coding standard as base rules
-  - Some coding rules will be overwriten for customizing our coding standard
+  - We'll use the Airbnb coding standard as the base rules
+  - Some coding rules will be overwritten for customizing our coding standard
 - [ ] Define formatter
   - Prettier will be our default formatter
 
@@ -156,7 +156,7 @@ On each requirement, a task would be assigned and all the **thought process** fo
 
 - [ ] Make two commits
 - [ ] Make branches for specific features
-- [ ] Merge all branches into main branch
+- [ ] Merge all branches into the main branch
 
 ### 6. You must have at least one test
 
