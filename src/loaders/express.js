@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { nodeEnvironment } = require('../configs/index');
 const apiRouter = require('../api/index');
 
-module.exports = (app) => {
+module.exports = app => {
   if (nodeEnvironment !== 'production') {
     const morgan = require('morgan');
     app.use(morgan('dev'));

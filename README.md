@@ -82,10 +82,12 @@ Simple API for keeping track of ping-pong game matches.
 
 ## Installation
 
+This project is intended to run locally on a developer's windows machine.
+
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/gabosotob/pingpongscore.git
 ```
 
 ## Deploy & Run (local)

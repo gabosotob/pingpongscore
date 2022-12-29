@@ -31,7 +31,7 @@ exports.get_user = async userId => {
 
 exports.get_users = async () => {
   try {
-    const users = await User.find({});
+    const users = await User.find({}).select(['id', 'name', 'wins']);
 
     return users;
   } catch (err) {
