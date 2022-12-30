@@ -8,7 +8,7 @@ On each requirement, a task would be assigned and all the **thought process** fo
 
 ### 1. NodeJS for the backend
 
-- [ ] Define system communication architecture
+- [x] Define system communication architecture
 
   #### Context
 
@@ -27,7 +27,7 @@ On each requirement, a task would be assigned and all the **thought process** fo
   - A cloud-based database for shared data so we don't worry about setting up a local DB.
   - A local API for communicating with external DB.
 
-- [ ] Setup Express.js app file structure
+- [x] Setup Express.js app file structure
 
   Because makes more sense to work with the endpoints as actions for the entities of the app, the folder structure for the API will be their entities, so whatever case we are in with users, we will only touch the user's folder. Our folder structure for the source code looks like this:
 
@@ -76,27 +76,27 @@ On each requirement, a task would be assigned and all the **thought process** fo
 
 ### 2. Any database for storing data
 
-- [ ] Define DB type based on size, type and queries to be made to the project app
+- [x] Define DB type based on size, type and queries to be made to the project app
 
   - Since it's a small app and will be a small development, we'll gonna use MongoDB for simple and easy configuration using Javascript.
   - We'll use Mongo Atlas for our cloud-based DB.
 
-- [ ] Make ER Diagram
+- [x] Make ER Diagram
 
   The provided prototype only shows the use of the "Save Game" feature, but since 4 endpoints are needed for this project, **Games** and **Users** entities will be defined.
 
-  - [ ] Define User model
+- [x] Define User model
 
-    The model for the User is the name, the IDs of the winning games, and the IDs of the overall played games.
+  The model for the User is the name, the IDs of the winning games, and the IDs of the overall played games.
 
-    ```javascript
-    new Schema({
-      name: { type: String, required: true, unique: true },
-      wins: { type: Number, required: true, default: 0 },
-    });
-    ```
+  ```javascript
+  new Schema({
+    name: { type: String, required: true, unique: true },
+    wins: { type: Number, required: true, default: 0 },
+  });
+  ```
 
-  - [ ] Define Game mode
+  - [x] Define Game mode
 
     The model for the Games is an array that represents the teams of the game, each team has a side of the table, the score and an array of player IDs. Then it's the status of the game, an object that contains the score difference between the teams
 
@@ -129,13 +129,13 @@ On each requirement, a task would be assigned and all the **thought process** fo
 
 ### 3. At least 4 APIs (Up to you to decide; but adding some examples: Save users, get games, get users, get top performer from the last 5 games, save game)
 
-- [ ] Define Storybook
+- [x] Define Storybook
 
   - A user enters the Ping Ping App, introduces players 1 and 2 names, then starts a new game
   - On the new game screen, A user adds wins to the corresponding player and sees the current score of each player with the resulting score difference between players, and the current winner of the playing game
   - Once the game has been seized, a user saves the game score into the app's game records
 
-- [ ] Design API endpoints
+- [x] Design API endpoints
 
   Required for Prototype:
 
@@ -146,30 +146,30 @@ On each requirement, a task would be assigned and all the **thought process** fo
 
 ### 4. You must use some linter for the code
 
-- [ ] Define linter, standard and guide rules
+- [x] Define linter, standard and guide rules
   - We'll use the Airbnb coding standard as the base rules
   - Some coding rules will be overwritten for customizing our coding standard
-- [ ] Define formatter
+- [x] Define formatter
   - Prettier will be our default formatter
 
 ### 5. You must use git for version control (at least 2 commits)
 
-- [ ] Make two commits
-- [ ] Make branches for specific features
-- [ ] Merge all branches into the main branch
+- [x] Make two commits
+- [x] Make branches for specific features
+- [x] Merge all branches into the main branch
 
 ### 6. You must have at least one test
 
-- [ ] Have a test for every main service process
+- [x] Have a test for every main service process
 
 ### 7. You must include a README with instructions on how to run the application
 
-- [ ] Include authors
-- [ ] Include features
-- [ ] Include API Reference
-- [ ] Installation
-- [ ] How to run
-- [ ] Running test
-- [ ] Environment variable
+- [x] Include authors
+- [x] Include features
+- [x] Include API Reference
+- [x] Installation
+- [x] How to run
+- [x] Running test
+- [x] Environment variable
 
 ### 8. Not required to create a front-end. However, if you manage to build a small UI that would be great.
