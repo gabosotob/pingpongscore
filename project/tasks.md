@@ -87,8 +87,6 @@ On each requirement, a task would be assigned and all the **thought process** fo
 
 - [x] Define User model
 
-  The model for the User is the name, the IDs of the winning games, and the IDs of the overall played games.
-
   ```javascript
   new Schema({
     name: { type: String, required: true, unique: true },
@@ -97,8 +95,6 @@ On each requirement, a task would be assigned and all the **thought process** fo
   ```
 
   - [x] Define Game mode
-
-    The model for the Games is an array that represents the teams of the game, each team has a side of the table, the score and an array of player IDs. Then it's the status of the game, an object that contains the score difference between the teams
 
     ```javascript
     new Schema({
