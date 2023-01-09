@@ -1,4 +1,3 @@
-const { Types } = require('mongoose');
 const Game = require('./model');
 const User = require('../users/model');
 const userService = require('../users/service');
@@ -11,7 +10,7 @@ exports.get_player_id = async player => {
   if (!exist) {
     const user = await userService.save_user(player).catch(console.error);
     id = user.id;
-  } else id = exist._id.toString();
+  } else id = exist.id;
 
   return id;
 };

@@ -10,12 +10,18 @@ router.post('/', celebrate.game, async (req, res) => {
   try {
     const game = await gameService.save_game(gameData);
 
-    if (game === null) { return res.status(400).json({ ok: false, messae: ' Invalid Game Data' }); }
+    if (game === null) {
+      return res.status(400).json({ ok: false, message: ' Invalid Game Data' });
+    }
 
-    res.status(201).json({ ok: true, message: 'Game Saved', data: game });
+    return res.status(201).json({
+      ok: true,
+      message: 'Game Saved',
+      data: game,
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({
+    return res.status(500).json({
       ok: false,
       message: "Server Error: Can't Register Game",
     });

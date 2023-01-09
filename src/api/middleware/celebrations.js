@@ -1,6 +1,4 @@
-const {
-  celebrate, Joi, errors, Segments,
-} = require('celebrate');
+const { celebrate, Joi, Segments } = require('celebrate');
 
 module.exports = {
   game: celebrate({
